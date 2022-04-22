@@ -1,5 +1,8 @@
 # RoutineWave
 
+![RoutineWave](https://user-images.githubusercontent.com/89897944/164740296-1083cbb5-77da-4eab-9355-4f477d8c27be.png)
+
+
 ### 장고와 리액트를 이용한 나만의 스케쥴러 지금 시작합니다!
 <div align=center><h1>📚 STACKS</h1></div>
 
