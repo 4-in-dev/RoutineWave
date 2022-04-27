@@ -54,7 +54,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "corsheaders",
+    'corsheaders',
+
+    'api.apps.ApiConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -155,5 +158,10 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 
 # cors setting
-CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:8000", "http://localhost:8000"]  # it make white list that can access
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3000"
+]  # it make white list that can access
 CORS_ALLOW_CREDENTIALS = True
