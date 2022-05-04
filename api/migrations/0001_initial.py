@@ -7,6 +7,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
+
     dependencies = []
 
     operations = [
@@ -25,6 +26,7 @@ class Migration(migrations.Migration):
                 ("body", models.TextField(blank=True, null=True)),
                 ("updated", models.DateTimeField(auto_now=True)),
                 ("created", models.DateTimeField(auto_now_add=True)),
+
             ],
         ),
     ]

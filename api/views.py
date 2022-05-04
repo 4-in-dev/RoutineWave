@@ -1,5 +1,6 @@
 from django.http import response
 from django.shortcuts import render
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
@@ -19,6 +20,7 @@ def getRoutes(request):
 
     routes = [
         {
+
             "Endpoint": "/notes/",
             "method": "GET",
             "body": None,
@@ -47,6 +49,7 @@ def getRoutes(request):
             "method": "DELETE",
             "body": None,
             "description": "Deletes and exiting note",
+
         },
     ]
     return Response(routes)
@@ -57,6 +60,7 @@ def getRoutes(request):
 # /notes/<id> GET
 # /notes/<id> PUT
 # /notes/<id> DELETE
+
 
 
 @api_view(["GET", "POST"])
@@ -79,6 +83,7 @@ def getNote(request, pk):
         return updateNote(request, pk)
 
     if request.method == "DELETE":
+
         return deleteNote(request, pk)
 
 
@@ -108,4 +113,6 @@ def getNote(request, pk):
 # def deleteNote(request, pk):
 #     note = Note.objects.get(id=pk)
 #     note.delete()
+
 #     return Response('Note was deleted!')
+

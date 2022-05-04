@@ -11,8 +11,10 @@ mysqlclient = "*"
 django-storages = "*"
 boto3 = "*"
 djangorestframework = "*"
+
 black = "==21.12b0"
 isort = "==5.10.1"
+
 
 [dev-packages]
 
