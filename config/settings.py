@@ -44,7 +44,6 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,7 +53,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "api.apps.ApiConfig",
     "rest_framework",
-
 ]
 
 MIDDLEWARE = [
@@ -156,8 +154,6 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:8000",
     "http://localhost:8000",
     "http://127.0.0.1:3000",
-
     "http://localhost:3000",
-
 ]  # it make white list that can access
 CORS_ALLOW_CREDENTIALS = True

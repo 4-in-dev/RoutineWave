@@ -26,7 +26,6 @@ def createNote(request):
     return Response(serializer.data)
 
 
-
 def updateNote(request, pk):
     data = request.data
     note = Note.objects.get(id=pk)
@@ -43,4 +42,3 @@ def deleteNote(request, pk):
     note.delete()
 
     return Response("Note was deleted!")
-
