@@ -6,8 +6,7 @@
 ### 장고와 리액트를 이용한 나만의 스케쥴러 지금 시작합니다!
 <div align=center><h1>📚 STACKS</h1></div>
 
-<div align=center> 
-  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
+<div align=center>   
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
   <br>
   
