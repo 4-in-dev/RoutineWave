@@ -67,6 +67,9 @@ INSTALLED_APPS = [
 
     # 로그인, 회원가입
     "users",
+
+    # 스케쥴 CRUD
+    "schedules",
 ]
 
 MIDDLEWARE = [
@@ -156,6 +159,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_USE_JWT = True
 
 from datetime import timedelta
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
