@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
+
 # username 대신 email로 회원가입.
 class UserManager(BaseUserManager):
     """
