@@ -4,42 +4,42 @@ from api import serializers
 
 # Create your views here.
 
-
-@api_view(["GET"])
-def getRoutes(request):
-    routes = [
-        {
-            "Endpoint": "/notes/",
-            "method": "GET",
-            "body": None,
-            "description": "Returns an array of notes",
-        },
-        {
-            "Endpoint": "/notes/id",
-            "method": "GET",
-            "body": None,
-            "description": "Returns a single note object",
-        },
-        {
-            "Endpoint": "/notes/create/",
-            "method": "POST",
-            "body": {"body": ""},
-            "description": "Creates new note with data sent in post request",
-        },
-        {
-            "Endpoint": "/notes/id/update/",
-            "method": "PUT",
-            "body": {"body": ""},
-            "description": "Creates an existing note with data sent in post request",
-        },
-        {
-            "Endpoint": "/notes/id/delete/",
-            "method": "DELETE",
-            "body": None,
-            "description": "Deletes and exiting note",
-        },
-    ]
-    return Response(routes)
+#
+# @api_view(["GET"])
+# def getRoutes(request):
+#     routes = [
+#         {
+#             "Endpoint": "/notes/",
+#             "method": "GET",
+#             "body": None,
+#             "description": "Returns an array of notes",
+#         },
+#         {
+#             "Endpoint": "/notes/id",
+#             "method": "GET",
+#             "body": None,
+#             "description": "Returns a single note object",
+#         },
+#         {
+#             "Endpoint": "/notes/create/",
+#             "method": "POST",
+#             "body": {"body": ""},
+#             "description": "Creates new note with data sent in post request",
+#         },
+#         {
+#             "Endpoint": "/notes/id/update/",
+#             "method": "PUT",
+#             "body": {"body": ""},
+#             "description": "Creates an existing note with data sent in post request",
+#         },
+#         {
+#             "Endpoint": "/notes/id/delete/",
+#             "method": "DELETE",
+#             "body": None,
+#             "description": "Deletes and exiting note",
+#         },
+#     ]
+#     return Response(routes)
 
 
 # /notes GET
@@ -63,24 +63,24 @@ from schedules.serializers import (ScheduleCreateSerializer,
                                    ScheduleUpdateSerializer)
 
 from .models import Category
-from .serializers import CategorySerializer, RegistrationSerializer
+from .serializers import CategorySerializer
 
-
-class RegistrationAPIView(generics.GenericAPIView):
-    serializer_class = RegistrationSerializer
-
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        if (serializer.is_valid()):
-            serializer.save()
-            return Response({
-                "RequestId": str(uuid.uuid4()),
-                "Message": "User created successfully",
-
-                "User": serializer.data}, status=status.HTTP_201_CREATED
-            )
-
-        return Response({"Errors": serializers.errors}, status=status.HTTP_400_BAD_REQUEST)
+#
+# class RegistrationAPIView(generics.GenericAPIView):
+#     serializer_class = RegistrationSerializer
+#
+#     def post(self, request):
+#         serializer = self.get_serializer(data=request.data)
+#         if (serializer.is_valid()):
+#             serializer.save()
+#             return Response({
+#                 "RequestId": str(uuid.uuid4()),
+#                 "Message": "User created successfully",
+#
+#                 "User": serializer.data}, status=status.HTTP_201_CREATED
+#             )
+#
+#         return Response({"Errors": serializers.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ScheduleListView(generics.ListCreateAPIView):

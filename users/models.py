@@ -6,7 +6,7 @@ from .managers import UserManager
 
 
 class User(AbstractUser):
-    username = None
+    username = "기타사용자"
     email = models.EmailField(_('email address'), unique=True)
 
     USERNAME_FIELD = 'email'
