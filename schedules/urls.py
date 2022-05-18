@@ -1,9 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import (DetailCategory, ListCategory, ScheduleListView,)
-
-
+from .views import DetailCategory, ListCategory, ScheduleListView
 
 urlpatterns = [
     path('categories', ListCategory.as_view(), name='categorie'),

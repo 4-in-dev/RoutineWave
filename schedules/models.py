@@ -18,11 +18,10 @@ class Category(models.Model):
 
 
 class Schedule(models.Model):
-    created_by = models.ForeignKey('users.User', related_name='user', on_delete=models.CASCADE, null=True, blank=True)
+    writer = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True)
     schedule_date = models.DateTimeField('custom date')
     content = models.TextField(null=True, blank=True)
     is_finished = models.BooleanField('완료 여부', default=False)
-
     start_time = models.DateTimeField('start_time')
     end_time = models.DateTimeField('end_time')
 

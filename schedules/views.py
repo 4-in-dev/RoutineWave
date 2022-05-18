@@ -1,6 +1,20 @@
+import uuid
+
+from rest_framework import generics, permissions, serializers, status, viewsets
 from rest_framework.decorators import api_view
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
+from rest_framework.request import Request
+from rest_framework.response import Response
 
 from api import serializers
+from schedules.models import Schedule
+from schedules.serializers import (ScheduleCreateSerializer,
+                                   ScheduleSerializer,
+                                   ScheduleUpdateSerializer)
+
+from .models import Category
+from .serializers import CategorySerializer
 
 # Create your views here.
 
@@ -49,21 +63,9 @@ from api import serializers
 # /notes/<id> DELETE
 
 
-import uuid
 
-from rest_framework import generics, permissions, serializers, status, viewsets
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
-from rest_framework.request import Request
-from rest_framework.response import Response
 
-from schedules.models import Schedule
-from schedules.serializers import (ScheduleCreateSerializer,
-                                   ScheduleSerializer,
-                                   ScheduleUpdateSerializer)
 
-from .models import Category
-from .serializers import CategorySerializer
 
 #
 # class RegistrationAPIView(generics.GenericAPIView):
@@ -84,7 +86,7 @@ from .serializers import CategorySerializer
 
 
 class ScheduleListView(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     queryset = Schedule.objects.order_by("-id")
     serializer_class = ScheduleSerializer
 

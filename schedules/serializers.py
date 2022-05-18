@@ -6,9 +6,12 @@ from .models import Category, Schedule
 # 스케쥴과 스케쥴 카테고리 등록 시리얼라이저
 
 class ScheduleSerializer(serializers.ModelSerializer):
+    writer = User
+
     class Meta:
         model = Schedule
         fields = [
+            "writer",
             "schedule_date",
             "content",
             "is_finished",
