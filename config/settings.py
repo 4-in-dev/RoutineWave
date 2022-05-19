@@ -70,6 +70,8 @@ INSTALLED_APPS = [
 
     # 스케쥴 CRUD
     "schedules",
+    # calendar CRUD
+    "calendars",
 ]
 
 MIDDLEWARE = [
