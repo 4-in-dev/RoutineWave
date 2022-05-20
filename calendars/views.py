@@ -1,10 +1,12 @@
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import mixins
-from rest_framework import viewsets
-from .serializers import UserSerializer, EventSerializer
-from .models import Event
-from users.models import User
 from datetime import datetime, time, timedelta
+
+from rest_framework import mixins, viewsets
+from rest_framework.permissions import IsAuthenticated
+
+from users.models import User
+
+from .models import Event
+from .serializers import EventSerializer, UserSerializer
 
 
 class UserViewSet(mixins.CreateModelMixin,

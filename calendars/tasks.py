@@ -1,12 +1,13 @@
-from django.template import Template, Context
-from django.core.mail import send_mail
-from django.contrib.auth import get_user_model
-from config.celery import app
 from datetime import datetime, time
-from ics import Calendar
-import calendars.models as models
-import requests
 
+import requests
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+from django.template import Context, Template
+from ics import Calendar
+
+import calendars.models as models
+from config.celery import app
 
 REMINDER_TEMPLATE = """
 Событие {{ event.name }}

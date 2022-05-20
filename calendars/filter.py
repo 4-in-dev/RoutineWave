@@ -2,6 +2,7 @@
 from django.db.models import Q
 from rest_framework import filters
 
+
 class IsOwnerFilterBackend(filters.BaseFilterBackend):
     """
     Filter for getting only owned objects

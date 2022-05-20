@@ -19,6 +19,9 @@ django-allauth = "*"
 celery = "*"
 ics = "*"
 
+django-imagekit = "*"
+pillow = "*"
+
 [dev-packages]
 
 [requires]

@@ -1,11 +1,12 @@
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from datetime import datetime, timedelta
+
 import pytz
-
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
+from django.db import models
 from django.db.models import signals
-import calendars.tasks as tasks
 
+import calendars.tasks as tasks
 from users.models import User
 
 REMINDER_HOURS = ((1, '1'), (2, '2'), (3, '4'), (4, '24'), (5, '168'))

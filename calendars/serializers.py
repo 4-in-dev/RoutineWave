@@ -1,7 +1,9 @@
-from rest_framework.authtoken.models import Token
-from rest_framework import serializers
-from .models import Event, User
 import datetime
+
+from rest_framework import serializers
+from rest_framework.authtoken.models import Token
+
+from .models import Event, User
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
