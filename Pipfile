@@ -17,6 +17,9 @@ djangorestframework-simplejwt = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
 
+django-imagekit = "*"
+pillow = "*"
+
 [dev-packages]
 
 [requires]

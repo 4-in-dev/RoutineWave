@@ -15,6 +15,10 @@ from pathlib import Path
 from .my_settings import (MY_DATABASES, MY_SECRET, MY_SECRET_ACCESS_KEY,
                           S3_BUCKET_NAME)
 
+from datetime import timedelta
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +27,6 @@ SECRET_KEY = MY_SECRET["SECRET_KEY"]
 DATABASES = MY_DATABASES
 
 # SECRET_KEY = 'django-insecure-24*lv+4%ejf8er@e6q8@xom8^b=*$%_1t2k$8qf!854q5f@k%g'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # Database
@@ -64,6 +67,11 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+
+    # 프로필 사진
+    'imagekit',
+    
 
     # 로그인, 회원가입
     "users",
@@ -148,6 +156,15 @@ REST_FRAMEWORK = {
     ),
 }
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+}
+
+
 # jwt settings
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
@@ -156,8 +173,12 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_USE_JWT = True
+
 
 from datetime import timedelta
 
