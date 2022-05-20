@@ -2,10 +2,12 @@ from django.urls import include, path
 from rest_framework import routers
 
 from schedules.views import ScheduleViewSet
+
 # from users.views import UserViewSet
 
 router = routers.DefaultRouter()
 # router.register(r'user', UserViewSet)
+
 router.register(r'schedule', ScheduleViewSet)
 
 urlpatterns = [

@@ -22,3 +22,4 @@ for i in range(N):
         print(answer[i], '>', sep='', end='')
     else:
         print(answer[i], ', ', sep='', end='')
+

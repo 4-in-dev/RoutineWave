@@ -5,6 +5,7 @@ import django.utils.timezone
 import imagekit.models.fields
 
 
+
 class Migration(migrations.Migration):
 
     initial = True

@@ -16,6 +16,7 @@ isort = "==5.10.1"
 djangorestframework-simplejwt = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
+
 django-imagekit = "*"
 pillow = "*"
 
