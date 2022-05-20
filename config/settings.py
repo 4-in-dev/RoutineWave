@@ -36,7 +36,7 @@ DATABASES = MY_DATABASES
 #     }
 # }
 
-DEBUG = True
+DEBUG = False
 
 # setting
 ALLOWED_HOSTS = ["*"]
