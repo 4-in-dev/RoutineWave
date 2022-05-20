@@ -1,106 +1,91 @@
-# -*- coding: utf-8 -*-
-import datetime
-
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from datetime import datetime, timedelta
+import pytz
 
-from django.utils import timezone as _timezone
+from django.db.models import signals
+import calendars.tasks as tasks
 
-from core.utils import get_timezones, DEFAULT_TIMEZONE
+from users.models import User
 
-
-class Calendar(models.Model):
-    """
-    Stores info about calendars
-    """
-    owner = models.ForeignKey(User)
-    name = models.CharField(max_length=50)
-    # will be stored in RGB
-    # or better, a custom field can be done
-    color = models.CharField(max_length=6)
-
-    def __unicode__(self):
-        return self.name
+REMINDER_HOURS = ((1, '1'), (2, '2'), (3, '4'), (4, '24'), (5, '168'))
 
 
-class EventMixin(object):
-    """
-    Common mixin for events and invitations
-    """
-    NORMAL = 'NM'
-    ALL_DAY = 'AD'
-    TYPE_CHOICES = (
-        (NORMAL, 'NORMAL'),
-        (ALL_DAY, 'ALL_DAY'),
-    )
+# class UserAccountManager(BaseUserManager):
+#     use_in_migrations = True
+#
+#     def _create_user(self, email, password, **extra_fields):
+#         if not email:
+#             raise ValueError('Email address must be provided')
+#
+#         if not password:
+#             raise ValueError('Password must be provided')
+#
+#         email = self.normalize_email(email)
+#         user = self.model(email=email, **extra_fields)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
+#
+#     def create_user(self, email=None, password=None, **extra_fields):
+#         return self._create_user(email, password, **extra_fields)
+#
+#     def create_superuser(self, email, password, **extra_fields):
+#         extra_fields['is_staff'] = True
+#         extra_fields['is_superuser'] = True
+#
+#         return self._create_user(email, password, **extra_fields)
+#
+#
+# class User(AbstractBaseUser, PermissionsMixin):
+#
+#     REQUIRED_FIELDS = []
+#     USERNAME_FIELD = 'email'
+#
+#     objects = UserAccountManager()
+#
+#     email = models.EmailField('email', unique=True, blank=False, null=False)
+#     country = models.CharField('country', max_length=20, default='')
+#     is_staff = models.BooleanField('staff status', default=False)
+#     is_active = models.BooleanField('active', default=True)
+#
+#     def get_short_name(self):
+#         return self.email
+#
+#     def get_full_name(self):
+#         return self.email
+#
+#     def __unicode__(self):
+#         return self.email
 
 
 class Event(models.Model):
-    """
-    Stores info about events
-    """
-
-    calendar = models.ForeignKey(Calendar)
-    title = models.CharField(max_length=50)
-    description = models.TextField()
-    timezone = models.CharField(max_length=50, choices=get_timezones(), default=DEFAULT_TIMEZONE)
-    type = models.CharField(max_length=2, choices=EventMixin.TYPE_CHOICES, default=EventMixin.NORMAL)
-    # same field for both Event types
-    start = models.DateTimeField(default=_timezone.now)
-    end = models.DateTimeField(default=_timezone.now)
-
-    def __unicode__(self):
-        return self.title
-
-
-class CalendarSharing(models.Model):
-    """
-    Many to many relation containing the calendar sharing
-    """
-    READ = 'R'
-    WRITE = 'W'
-    TYPE_CHOICES = (
-        (READ, 'READ'),
-        (WRITE, 'WRITE'),
-    )
-
-    owner = models.ForeignKey(User, related_name='sharing_owner')
-    recipient = models.ForeignKey(User)
-    calendar = models.ForeignKey(Calendar)
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=READ)
+    name = models.CharField(max_length=255, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    start_time = models.TimeField()
+    end_date = models.DateField()
+    end_time = models.TimeField()
+    reminder_hours = models.IntegerField(choices=REMINDER_HOURS, blank=True, null=True)
+    is_holiday = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = ('recipient', 'calendar')
+        ordering = ('start_date', 'start_time',)
 
 
-class Invitation(models.Model):
-    """
-    Many to many relation storing invitations and changed event information
-    """
-    UNKNOWN = 'u'
-    MAYBE = 'm'
-    YES = 'y'
-    NO = 'n'
-    RVSP_CHOICES = (
-        (UNKNOWN, 'UNKNOWN'),
-        (MAYBE, 'MAYBE'),
-        (YES, 'YES'),
-        (NO, 'NO'),
-    )
+def event_post_save(sender, instance, signal, *args, **kwargs):
+    if not instance.reminder_hours:
+        return
+    mytime = datetime(instance.start_date.year, instance.start_date.month, instance.start_date.day,
+                      instance.start_time.hour, instance.start_time.minute) - timedelta(hours=instance.reminder_hours)
+    timezone = pytz.timezone('Europe/Minsk')
+    mytime = timezone.localize(mytime)
+    tasks.send_reminder_email.apply_async(args=[instance.pk], eta=mytime)
 
-    owner = models.ForeignKey(User)
-    invitee = models.ForeignKey(User, related_name='invitee')
-    event = models.ForeignKey(Event, related_name='invited_to')
-    title = models.CharField(max_length=50, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    type = models.CharField(max_length=2, choices=EventMixin.TYPE_CHOICES, default=EventMixin.NORMAL,
-                            blank=True, null=True)
-    rvsp = models.CharField(max_length=1, choices=RVSP_CHOICES, default=UNKNOWN, blank=True, null=True)
-    start = models.DateTimeField(default=_timezone.now)
-    end = models.DateTimeField(default=_timezone.now)
 
-    def __unicode__(self):
-        return self.title
+def user_get_holidays(sender, instance, signal, *args, **kwargs):
+    tasks.get_holidays.delay(instance.pk)
 
-    class Meta:
-        unique_together = ('invitee', 'event')
+
+signals.post_save.connect(event_post_save, sender=Event)
+signals.post_save.connect(user_get_holidays, sender=User)

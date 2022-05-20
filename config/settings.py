@@ -210,3 +210,18 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]  # it make white list that can access
 CORS_ALLOW_CREDENTIALS = True
+
+CELERY_TIMEZONE = "Asia/Seoul"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dzesentest@gmail.com'
+EMAIL_HOST_PASSWORD = '123-ASDasd'
+EMAIL_PORT = 587
+
+# REDIS related settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
