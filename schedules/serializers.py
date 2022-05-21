@@ -7,17 +7,17 @@ from .models import Category, Schedule
 
 class ScheduleSerializer(serializers.ModelSerializer):
     writer = User
-
     class Meta:
         model = Schedule
         fields = [
             "id",
             "writer",
-            "schedule_date",
+            "start_date",
+            "start_time",
+            "end_date",
+            "end_time",
             "content",
             "is_finished",
-            "start_time",
-            "end_time",
         ]
 
 
@@ -25,11 +25,12 @@ class ScheduleCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = [
-            "schedule_date",
+            "start_date",
+            "start_time",
+            "end_date",
+            "end_time",
             "content",
             "is_finished",
-            "start_time",
-            "end_time",
         ]
         extra_kwargs = {
             "id": {"read_only": True},
@@ -40,11 +41,12 @@ class ScheduleUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = [
-            "schedule_date",
+            "start_date",
+            "start_time",
+            "end_date",
+            "end_time",
             "content",
             "is_finished",
-            "start_time",
-            "end_time",
         ]
         extra_kwargs = {
             "id": {"read_only": True},
