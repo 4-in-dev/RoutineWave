@@ -18,6 +18,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             "end_time",
             "content",
             "is_finished",
+            "status",
         ]
 
 
@@ -31,6 +32,7 @@ class ScheduleCreateSerializer(serializers.ModelSerializer):
             "end_time",
             "content",
             "is_finished",
+            "status",
         ]
         extra_kwargs = {
             "id": {"read_only": True},
@@ -47,6 +49,7 @@ class ScheduleUpdateSerializer(serializers.ModelSerializer):
             "end_time",
             "content",
             "is_finished",
+            "status",
         ]
         extra_kwargs = {
             "id": {"read_only": True},
