@@ -7,7 +7,7 @@ from users.models import User
 
 from .models import Event
 from .serializers import EventSerializer, UserSerializer
-
+import datetime as dt
 
 class UserViewSet(mixins.CreateModelMixin,
                   viewsets.GenericViewSet):
@@ -30,10 +30,46 @@ class EventViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Event.objects.filter(user=self.request.user)
-        if 'day' in self.request.data:
-            queryset = queryset.filter(start_date=datetime.strptime(self.request.data['day'], '%Y-%m-%d'))
-        elif 'month' in self.request.data:
-            date1 = datetime.strptime(self.request.data['month'], '%Y-%m')
+        print(self.request.query_params)
+        if 'day' in self.request.query_params:
+            print(self.request.query_params)
+            queryset = queryset.filter(start_date=datetime.strptime(self.request.query_params['day'], '%Y-%m-%d'))
+        elif 'month' in self.request.query_params:
+            date1 = datetime.strptime(self.request.query_params['month'], '%Y-%m')
             date2 = datetime(date1.year, date1.month + 1, date1.day)
             queryset = queryset.filter(start_date__range=[date1, date2])
         return queryset
+
+    # def get_queryset(self):
+    #     """
+    #     This function returns the appropriate events depending on the
+    #     args given in the get request
+    #     """
+    #     queryset = self.queryset
+    #
+    #     day = self.request.query_params.get('day')
+    #     month = self.request.query_params.get('month')
+    #     year = self.request.query_params.get('year')
+    #     query = self.request.query_params.get('query')
+    #
+    #     if (not query) or (not year):
+    #
+    #         # Here we get users who have shared their calendar with
+    #         # the current user.
+    #         users = [self.request.user]
+    #         users += list(self.request.u)
+    #         print(users)
+    #         queryset = self.queryset.filter(author__in=users)
+    #
+    #         if query:
+    #             return queryset.filter(title__contains=query)
+    #
+    #         if day and month and year:
+    #             day, month, year = [int(x) for x in [day, month, year]]
+    #             return queryset.filter(event_date__contains=dt.date(year, month, day))
+    #
+    #         if month and year:
+    #             return queryset.filter(event_date__month=month,
+    #                                    event_date__year=year)
+    #
+    #     return queryset

@@ -23,10 +23,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
+    email = serializers.ReadOnlyField(source='user.email')
     end_time = serializers.TimeField(required=False)
     end_date = serializers.DateField(required=False)
 
     class Meta:
         model = Event
-        fields = ('url', 'name', 'user', 'start_date', 'start_time', 'end_date', 'end_time', 'reminder_hours')
+        fields = ('url', 'name', 'email', 'start_date', 'start_time', 'end_date', 'end_time', 'reminder_hours')
