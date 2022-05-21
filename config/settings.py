@@ -16,8 +16,6 @@ from pathlib import Path
 # import redis
 from .my_settings import (MY_DATABASES, MY_SECRET, MY_SECRET_ACCESS_KEY,
                           S3_BUCKET_NAME, SMTP_PASSWORD)
-from datetime import timedelta
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

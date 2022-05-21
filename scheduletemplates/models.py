@@ -28,6 +28,15 @@ class Status(models.Model):
 
 
 class Scheduletemplate(models.Model):
+    STATUS_CHOICES = (
+        ('hp', '체력'),
+        ('int', '지력'),
+        ('will', '근성'),
+        ('exp', '경험'),
+        ('money', '재력'),
+        ('ten', '행복'),
+    )
+
     writer = models.ForeignKey(User, related_name='template_user', on_delete=models.CASCADE, null=True)
     content = models.TextField(null=True, blank=True)
     is_finished = models.BooleanField('완료 여부', default=False)
@@ -40,7 +49,8 @@ class Scheduletemplate(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     category = models.ForeignKey(Category, related_name='template_category', on_delete=models.SET_NULL, null=True, blank=True)
-    status = models.ForeignKey(Status, related_name='template_status', on_delete=models.SET_NULL, null=True, blank=True)
+    # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='근성')
 
     class Meta:
         db_table = "Scheduletemplate"
