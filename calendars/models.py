@@ -90,3 +90,4 @@ class Event(models.Model):
 #
 # signals.post_save.connect(event_post_save, sender=Event)
 # signals.post_save.connect(user_get_holidays, sender=User)
+
