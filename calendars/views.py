@@ -1,3 +1,4 @@
+import datetime as dt
 from datetime import datetime, time, timedelta
 
 from rest_framework import mixins, viewsets
@@ -7,7 +8,7 @@ from users.models import User
 
 from .models import Event
 from .serializers import EventSerializer, UserSerializer
-import datetime as dt
+
 
 class UserViewSet(mixins.CreateModelMixin,
                   viewsets.GenericViewSet):
