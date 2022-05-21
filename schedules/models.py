@@ -29,11 +29,16 @@ class Status(models.Model):
 
 class Schedule(models.Model):
     writer = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True)
-    schedule_date = models.DateTimeField('custom date')
+    # schedule_date = models.DateTimeField('custom date')
     content = models.TextField(null=True, blank=True)
     is_finished = models.BooleanField('완료 여부', default=False)
-    start_time = models.DateTimeField('start_time')
-    end_time = models.DateTimeField('end_time')
+    # start_time = models.DateTimeField('start_time')
+    # end_time = models.DateTimeField('end_time')
+
+    start_date = models.DateField()
+    start_time = models.TimeField()
+    end_date = models.DateField()
+    end_time = models.TimeField()
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

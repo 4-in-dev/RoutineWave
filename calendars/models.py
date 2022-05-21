@@ -73,20 +73,21 @@ class Event(models.Model):
     class Meta:
         ordering = ('start_date', 'start_time',)
 
+#
+# def event_post_save(sender, instance, signal, *args, **kwargs):
+#     if not instance.reminder_hours:
+#         return
+#     mytime = datetime(instance.start_date.year, instance.start_date.month, instance.start_date.day,
+#                       instance.start_time.hour, instance.start_time.minute) - timedelta(hours=instance.reminder_hours)
+#     timezone = pytz.timezone('Europe/Minsk')
+#     mytime = timezone.localize(mytime)
+#     tasks.send_reminder_email.apply_async(args=[instance.pk], eta=mytime)
+#
+# #
+# def user_get_holidays(sender, instance, signal, *args, **kwargs):
+#     tasks.get_holidays.delay(instance.pk)
+#
+#
+# signals.post_save.connect(event_post_save, sender=Event)
+# signals.post_save.connect(user_get_holidays, sender=User)
 
-def event_post_save(sender, instance, signal, *args, **kwargs):
-    if not instance.reminder_hours:
-        return
-    mytime = datetime(instance.start_date.year, instance.start_date.month, instance.start_date.day,
-                      instance.start_time.hour, instance.start_time.minute) - timedelta(hours=instance.reminder_hours)
-    timezone = pytz.timezone('Europe/Minsk')
-    mytime = timezone.localize(mytime)
-    tasks.send_reminder_email.apply_async(args=[instance.pk], eta=mytime)
-
-
-def user_get_holidays(sender, instance, signal, *args, **kwargs):
-    tasks.get_holidays.delay(instance.pk)
-
-
-signals.post_save.connect(event_post_save, sender=Event)
-signals.post_save.connect(user_get_holidays, sender=User)

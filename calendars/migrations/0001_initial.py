@@ -5,6 +5,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
+
 class Migration(migrations.Migration):
 
     initial = True
@@ -25,7 +26,9 @@ class Migration(migrations.Migration):
                 ('end_time', models.TimeField()),
                 ('reminder_hours', models.IntegerField(blank=True, choices=[(1, '1'), (2, '2'), (3, '4'), (4, '24'), (5, '168')], null=True)),
                 ('is_holiday', models.BooleanField(default=False)),
+
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+
             ],
             options={
                 'ordering': ('start_date', 'start_time'),
