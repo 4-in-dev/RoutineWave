@@ -1,7 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from calendars.views import EventViewSet
 from schedules.views import ScheduleViewSet
 from scheduletemplates.views import SchedulestemplateViewSet
 
@@ -9,7 +8,6 @@ from scheduletemplates.views import SchedulestemplateViewSet
 # router.register(r'user', UserViewSet)
 
 router = routers.DefaultRouter()
-
 router.register(r'schedule', ScheduleViewSet)
 # router.register(r'events', EventViewSet)
 router.register(r'Schedulestemplate', SchedulestemplateViewSet)

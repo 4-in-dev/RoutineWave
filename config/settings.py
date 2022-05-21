@@ -80,6 +80,7 @@ INSTALLED_APPS = [
 
     # scheduletemplates
     "scheduletemplates",
+
 ]
 
 MIDDLEWARE = [
@@ -241,12 +242,12 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ALLOW_CREDENTIALS = True
 
 CELERY_TIMEZONE = "Asia/Seoul"
-#
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'dzesentest@gmail.com'
-# EMAIL_HOST_PASSWORD = '123-ASDasd'
-# EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dzesentest@gmail.com'
+EMAIL_HOST_PASSWORD = '123-ASDasd'
+EMAIL_PORT = 587
 
 # REDIS related settings
 
