@@ -41,6 +41,7 @@
             "markers": "python_version >= '3.7'",
             "version": "==3.5.2"
 
+
         },
         "billiard": {
             "hashes": [
@@ -48,6 +49,7 @@
                 "sha256:87103ea78fa6ab4d5c751c4909bcff74617d985de7fa8b672cf8618afd5a875b"
             ],
             "version": "==3.6.4.0"
+
 
         },
         "black": {
