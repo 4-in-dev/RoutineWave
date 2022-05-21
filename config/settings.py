@@ -10,14 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
-
+# import redis
 from .my_settings import (MY_DATABASES, MY_SECRET, MY_SECRET_ACCESS_KEY,
                           S3_BUCKET_NAME)
-
-from datetime import timedelta
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,6 +75,8 @@ INSTALLED_APPS = [
 
     # 스케쥴 CRUD
     "schedules",
+    # calendar CRUD
+    "calendars",
 ]
 
 MIDDLEWARE = [
@@ -229,3 +228,18 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]  # it make white list that can access
 CORS_ALLOW_CREDENTIALS = True
+
+CELERY_TIMEZONE = "Asia/Seoul"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dzesentest@gmail.com'
+EMAIL_HOST_PASSWORD = '123-ASDasd'
+EMAIL_PORT = 587
+
+# REDIS related settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'

@@ -1,9 +1,10 @@
+import sys
+from collections import deque
+
 from django.test import TestCase
 
 # Create your tests here.
 
-from collections import deque
-import sys
 
 N, K = map(int, sys.stdin.readline().split())
 

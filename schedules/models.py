@@ -17,6 +17,16 @@ class Category(models.Model):
         return self.title
 
 
+class Status(models.Model):
+    title = models.CharField(max_length=10, default=DEFAULT_CATEGORY)
+
+    class Meta:
+        verbose_name_plural = 'Status'
+
+    def __str__(self):
+        return self.title
+
+
 class Schedule(models.Model):
     writer = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True)
     schedule_date = models.DateTimeField('custom date')
@@ -28,7 +38,8 @@ class Schedule(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    category = models.ForeignKey(Category, related_name='schedules', on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE, null=True, blank=True)
+    status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = "schedule"
