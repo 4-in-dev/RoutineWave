@@ -22,9 +22,6 @@ ics = "*"
 django-imagekit = "*"
 pillow = "*"
 
-django-imagekit = "*"
-pillow = "*"
-
 [dev-packages]
 
 [requires]
