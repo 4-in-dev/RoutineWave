@@ -1,14 +1,17 @@
 from django.urls import include, path
 from rest_framework import routers
 
+from calendars.views import EventViewSet
 from schedules.views import ScheduleViewSet
 
 # from users.views import UserViewSet
+
 
 router = routers.DefaultRouter()
 # router.register(r'user', UserViewSet)
 
 router.register(r'schedule', ScheduleViewSet)
+router.register(r'events', EventViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
