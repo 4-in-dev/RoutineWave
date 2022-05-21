@@ -27,6 +27,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'password', 'nick_name', 'profile_image']
 
 
+
+
+
 # class UserSerializer(serializers.ModelSerializer):
 #     email = serializers.EmailField(max_length=50, min_length=6)
 #     # username = serializers.CharField(max_length=50, min_length=6)
