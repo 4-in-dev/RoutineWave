@@ -174,7 +174,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 
@@ -243,11 +243,14 @@ CORS_ALLOW_CREDENTIALS = True
 
 CELERY_TIMEZONE = "Asia/Seoul"
 
+# smtp setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'dzesentest@gmail.com'
-EMAIL_HOST_PASSWORD = '123-ASDasd'
-EMAIL_PORT = 587
+EMAIL_HOST_USER = 'routinewave.email@gmail.com'
+EMAIL_HOST_PASSWORD = SMTP_PASSWORD["PASSWORD"]
+EMAIL_PORT = '587'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # REDIS related settings
 

@@ -69,6 +69,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Schedule.objects.filter(writer=self.request.user)
+        print(f"여기에 메일이 옵니다 {self.request.user}")
         # print(self.request.query_params)
         if 'day' in self.request.query_params:
             print(f" day12 :{self.request.query_params}")
