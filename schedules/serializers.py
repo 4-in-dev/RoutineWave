@@ -19,6 +19,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             "end_time",
             "content",
             "is_finished",
+            "status",
         ]
 
 #

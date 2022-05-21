@@ -15,7 +15,9 @@ from pathlib import Path
 
 # import redis
 from .my_settings import (MY_DATABASES, MY_SECRET, MY_SECRET_ACCESS_KEY,
-                          S3_BUCKET_NAME)
+                          S3_BUCKET_NAME, SMTP_PASSWORD)
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -173,8 +175,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-
+ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 
@@ -187,9 +188,18 @@ from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False, # 토큰 재발급 관련 설정
+    'ROTATE_REFRESH_TOKENS': True, # 토큰 재발급 관련 설정
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+# smtp setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'routinewave.email@gmail.com'
+EMAIL_HOST_PASSWORD = SMTP_PASSWORD["PASSWORD"]
+EMAIL_PORT = '587'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # setting local
 STATIC_URL = "/static/"
@@ -233,12 +243,12 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ALLOW_CREDENTIALS = True
 
 CELERY_TIMEZONE = "Asia/Seoul"
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'dzesentest@gmail.com'
-EMAIL_HOST_PASSWORD = '123-ASDasd'
-EMAIL_PORT = 587
+#
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'dzesentest@gmail.com'
+# EMAIL_HOST_PASSWORD = '123-ASDasd'
+# EMAIL_PORT = 587
 
 # REDIS related settings
 
