@@ -34,7 +34,7 @@ DATABASES = MY_DATABASES
 #     }
 # }
 
-DEBUG = False
+DEBUG = True
 
 # setting
 ALLOWED_HOSTS = ["*"]
@@ -77,6 +77,9 @@ INSTALLED_APPS = [
 
     # scheduletemplates
     "scheduletemplates",
+
+    # 달성도 그래프
+    'achievement',
 
 ]
 
