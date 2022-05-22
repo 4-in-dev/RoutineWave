@@ -1,13 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-<<<<<<< HEAD
 from .models import Schedule, Status
-
-=======
-from .models import Category, Schedule, Status
-
->>>>>>> 27c1ca57d427776de64d643d0d8a07425ab15f5e
 
 # 스케쥴과 스케쥴 카테고리 등록 시리얼라이저
 
@@ -61,7 +55,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #         }
 #
 
-<<<<<<< HEAD
+
 #
 # class ScheduleCreateSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -95,8 +89,6 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #         }
 #
 
-=======
->>>>>>> 27c1ca57d427776de64d643d0d8a07425ab15f5e
 # class RegistrationSerializer(serializers.ModelSerializer):
 #     email = serializers.EmailField(max_length=50, min_length=6)
 #     username = serializers.CharField(max_length=50, min_length=6)
@@ -120,7 +112,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #         return User.objects.create_user(**validated_data)
 
 
-<<<<<<< HEAD
+
 # class CategorySerializer(serializers.ModelSerializer):
 #     class Meta:
 #         fields = (
@@ -128,26 +120,12 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #             'title'
 #         )
 #         model = Category
-=======
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'id',
-            'title'
-        )
-        model = Category
->>>>>>> 27c1ca57d427776de64d643d0d8a07425ab15f5e
+
 
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
-<<<<<<< HEAD
+
         fields = ('id', 'title')
         model = Status
-=======
-        fields = (
-            'id',
-            'title'
-        )
-        model = Status
->>>>>>> 27c1ca57d427776de64d643d0d8a07425ab15f5e
+
