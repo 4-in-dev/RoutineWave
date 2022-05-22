@@ -1,17 +1,15 @@
+from achievement.models import Achievement
 from api import serializers
-from schedules.models import Schedule
 
 
-class StatusSerializer(serializers.ModelSerializer):
+class AchievementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Schedule
+        model = Achievement
         fields = (
             'id',
             'writer',
-            'is_finished',
-            'status',
-            "start_date",
-            "start_time",
-            "end_date",
-            "end_time",
+            'date',
+            'total_percent',
+            "total_schedules_day",
+            "finished_schedules_day",
         )

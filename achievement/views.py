@@ -1,4 +1,3 @@
-## 효정: 누적 달성도 그래프
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -6,67 +5,70 @@ from rest_framework.response import Response
 from datetime import date, datetime, timedelta
 from schedules.models import Schedule
 from .models import Achievement
-from .serializers import StatusSerializer
+from .serializers import AchievementSerializer
 
 
 class TotalGraphViewSet(viewsets.ModelViewSet):
+    # ViewSet 설정
     queryset = Schedule.objects.all()
-    serializer_class = StatusSerializer
+    serializer_class = AchievementSerializer
     permission_classes = (IsAuthenticated,)
 
-    def get_queryset(self):
-        queryset = Schedule.objects.filter(writer=self.request.user)
-        before = date.today() - timedelta(days=15)
-        after = date.today() + timedelta(days=15)
-        # today = date.today() - timedelta(days=15)
-        # print(today)
+    # 무조건 GET 방식으로 해야 함
+    def get_queryset(self, queryset=None):
 
-        # print(self.request.query_params)
-        # start_date__range = [date1, date2]
-        # queryset = queryset.filter(start_date=datetime.strptime(str(today),'%Y-%m-%d'))
-        queryset = queryset.filter(start_date=datetime.strptime(str(before), '%Y-%m-%d'))
+        # 오늘 날짜를 기준으로 -15일 ~ +15일 기간을 구할 것임
+        today = date.today() - timedelta(days=15)
 
+        # 한달(30번) 돌리면서 Achievement에 저장
         for i in range(0, 31):
-            before = before + timedelta(days=i)
-            queryset = queryset.filter(start_date=datetime.strptime(str(before), '%Y-%m-%d'))
-            finished_count = 0
-            total_schedules_day = queryset.count()
-            for query in queryset:
-                if query.is_finished == True:
-                    finished_count += 1
-                # print(query)
-                # print(query.is_finished)
 
-            total_percent = total_schedules_day
-            achievement = Achievement.objects.create(
-                date=before,
-                finished_schedules_day=finished_count,
+            # 변수 선언, 초기화
+            total_schedules_day = 0  # 전체 일정 개수
+            finished_schedules_day = 0  # 완료 일정 개수
+            total_percent = 0  # 일일 달성도
+
+            # 하루가 지날 때마다 today에 +1
+            today += timedelta(days=1)
+
+            # Schedule에서 before에 해당하는 일정들 전부 가져오기
+            schedule_list = Schedule.objects.filter(writer=self.request.user,
+                                                    start_date=datetime.strptime(str(today), '%Y-%m-%d'))
+
+            # 날짜에 해당 되는 일정이 있다면 아래 실행
+            if schedule_list:
+                total_schedules_day = schedule_list.count()  # 전체 일정 개수
+
+                # 같은 날짜의 일정을 하나씩 확인한다.
+                for schedule in schedule_list:
+                    # 일정이 완료된 상태라면 완료 일정 개수 += 1
+                    if schedule.is_finished:
+                        finished_schedules_day += 1
+
+                # 일일 달성도 = 완료 일정 개수 / 전체 일정 개수
+                total_percent = finished_schedules_day / total_schedules_day
+
+            achievement = Achievement.objects.filter(writer=self.request.user, date=today).update_or_create(
+                finished_schedules_day=finished_schedules_day,
                 total_schedules_day=total_schedules_day,
-                total_percent=total_percent
+                total_percent=total_percent, # 일일 달성도
+                date=today,
+                writer=self.request.user
             )
 
-            achievement.save()
+            # 테스트용 코드 (1)
+            # print(f'{i}: {today} / daily_percent: {achievement} / daily_percent: {daily_percent}')
+            # achievement.save()
+
+        # 오늘 날짜로부터터 -15일 ~ +15 범위를 필터링
+        before = date.today() - timedelta(days=15) # -15일
+        after = date.today() + timedelta(days=15) # +15일
+
         before = datetime.strptime(str(before), '%Y-%m-%d')
         after = datetime.strptime(str(after), '%Y-%m-%d')
-        queryset = Achievement.objects.filter(start_date__range=[before, after])
+        achievement_list = Achievement.objects.filter(date__range=[before, after])
 
-        # s = queryset.count()
-        # print(s)
-        # print(f'count: {finished_count}')
+        # 테스트용 코드 (2)
+        # print(f'achievement_list: {achievement_list}')
 
-        # # 하루 일일 달성도
-        # total_percent = models.FloatField(default=0)
-        # # 하루 전체 일정 수
-        # total_schedules_day = models.IntegerField(default=0)
-        # # 하루 달성 일정 수
-        # finished_schedules_day = models.IntegerField(default=0)
-
-        # 하루 일일 달성도
-
-        # print(queryset[0].is_finished)
-
-        # elif 'month' in self.request.query_params:
-        #     date1 = datetime.strptime(self.request.query_params['month'], '%Y-%m')
-        #     date2 = datetime(date1.year, date1.month + 1, date1.day)
-        #     queryset = queryset.filter(start_date__range=[date1, date2])
-        return queryset
+        return achievement_list
