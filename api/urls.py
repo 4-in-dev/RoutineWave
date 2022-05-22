@@ -1,8 +1,12 @@
 from django.urls import include, path
 from rest_framework import routers
 
+from achievement.views import TotalGraphViewSet
 from schedules.views import ScheduleViewSet
 from scheduletemplates.views import SchedulestemplateViewSet
+
+# from calendars.views import EventViewSet
+
 
 # from users.views import UserViewSet
 # router.register(r'user', UserViewSet)
@@ -10,6 +14,7 @@ from scheduletemplates.views import SchedulestemplateViewSet
 router = routers.DefaultRouter()
 router.register(r'schedule', ScheduleViewSet)
 # router.register(r'events', EventViewSet)
+router.register(r'graph', TotalGraphViewSet)
 router.register(r'Schedulestemplate', SchedulestemplateViewSet)
 
 urlpatterns = [

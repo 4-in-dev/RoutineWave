@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Category, Schedule, Status
+from .models import Schedule, Status
 
 # 스케쥴과 스케쥴 카테고리 등록 시리얼라이저
 
@@ -21,6 +21,40 @@ class ScheduleSerializer(serializers.ModelSerializer):
             "is_finished",
             "status",
         ]
+
+#
+# class ScheduleCreateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Schedule
+#         fields = [
+#             "start_date",
+#             "start_time",
+#             "end_date",
+#             "end_time",
+#             "content",
+#             "is_finished",
+#         ]
+#         extra_kwargs = {
+#             "id": {"read_only": True},
+#         }
+#
+#
+# class ScheduleUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Schedule
+#         fields = [
+#             "start_date",
+#             "start_time",
+#             "end_date",
+#             "end_time",
+#             "content",
+#             "is_finished",
+#         ]
+#         extra_kwargs = {
+#             "id": {"read_only": True},
+#         }
+#
+
 
 #
 # class ScheduleCreateSerializer(serializers.ModelSerializer):
@@ -78,19 +112,20 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #         return User.objects.create_user(**validated_data)
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'id',
-            'title'
-        )
-        model = Category
+
+# class CategorySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         fields = (
+#             'id',
+#             'title'
+#         )
+#         model = Category
+
 
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = (
-            'id',
-            'title'
-        )
+
+        fields = ('id', 'title')
         model = Status
+

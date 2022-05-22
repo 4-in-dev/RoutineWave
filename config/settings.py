@@ -34,7 +34,7 @@ DATABASES = MY_DATABASES
 #     }
 # }
 
-DEBUG = False
+DEBUG = True
 
 # setting
 ALLOWED_HOSTS = ["*"]
@@ -77,6 +77,9 @@ INSTALLED_APPS = [
 
     # scheduletemplates
     "scheduletemplates",
+
+    # 달성도 그래프
+    'achievement',
 
 ]
 
@@ -164,7 +167,6 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
 }
 
-
 # jwt settings
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
@@ -174,17 +176,15 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_USE_JWT = True
-
 
 from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': True, # 토큰 재발급 관련 설정
+    'ROTATE_REFRESH_TOKENS': True,  # 토큰 재발급 관련 설정
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
