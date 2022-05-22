@@ -38,7 +38,7 @@ DATABASES = MY_DATABASES
 #     }
 # }
 
-DEBUG = False
+DEBUG = True
 
 # setting
 ALLOWED_HOSTS = ["*"]
@@ -79,6 +79,9 @@ INSTALLED_APPS = [
     "schedules",
     # calendar CRUD
     "calendars",
+
+    # 달성도 그래프
+    'achievement',
 ]
 
 MIDDLEWARE = [
@@ -172,7 +175,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 

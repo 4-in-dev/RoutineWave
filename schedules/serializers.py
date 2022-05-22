@@ -86,3 +86,5 @@ class CategorySerializer(serializers.ModelSerializer):
             'title'
         )
         model = Category
+
+

@@ -1,5 +1,3 @@
-
-
 from rest_framework import generics, permissions, serializers, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
@@ -20,8 +18,12 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 from datetime import datetime, time
 from users.models import User
+from rest_framework.views import APIView
 
-#
+
+
+
+
 # @api_view(["GET"])
 # def getRoutes(request):
 #     routes = [
