@@ -1,27 +1,30 @@
+from datetime import date, datetime, timedelta
+
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from datetime import date, datetime, timedelta
+from rest_framework.views import APIView
+
 from schedules.models import Schedule
+
 from .models import Achievement
 from .serializers import AchievementSerializer
 
 
 class TotalGraphViewSet(viewsets.ModelViewSet):
     # ViewSet 설정
-    queryset = Schedule.objects.all()
+    queryset = Achievement.objects.all()
     serializer_class = AchievementSerializer
     permission_classes = (IsAuthenticated,)
 
     # 무조건 GET 방식으로 해야 함
     def get_queryset(self, queryset=None):
-
+        # queryset = Schedule.objects.all()
         # 오늘 날짜를 기준으로 -15일 ~ +15일 기간을 구할 것임
         today = date.today() - timedelta(days=15)
 
         # 한달(30번) 돌리면서 Achievement에 저장
-        for i in range(0, 31):
+        for _ in range(0, 31):
 
             # 변수 선언, 초기화
             total_schedules_day = 0  # 전체 일정 개수

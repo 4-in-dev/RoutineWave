@@ -1,6 +1,5 @@
 from datetime import datetime, time
 
-from rest_framework import generics, permissions, viewsets
 from rest_framework import generics, permissions, serializers, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
@@ -8,10 +7,10 @@ from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 
-from schedules.models import Category, Schedule, Status
+from schedules.models import Schedule, Status
 from schedules.serializers import ScheduleSerializer
 
-from .serializers import CategorySerializer, StatusSerializer
+from .serializers import StatusSerializer
 
 # class ScheduleListView(generics.ListCreateAPIView):
 #     # permission_classes = (permissions.IsAuthenticated,)
@@ -40,16 +39,16 @@ from .serializers import CategorySerializer, StatusSerializer
 #         return self.update(request, *args, **kwargs)
 
 
-class ListCategory(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class DetailCategory(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+# class ListCategory(generics.ListCreateAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
+#
+#
+# class DetailCategory(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
 
 
 # class ScheduleViewSet(viewsets.ModelViewSet):

@@ -7,14 +7,14 @@ from users.models import User
 DEFAULT_CATEGORY = "카테고리 없음"
 
 
-class Category(models.Model):
-    title = models.CharField(max_length=255, default=DEFAULT_CATEGORY)
-
-    class Meta:
-        verbose_name_plural = 'Categories'
-
-    def __str__(self):
-        return self.title
+# class Category(models.Model):
+#     title = models.CharField(max_length=255, default=DEFAULT_CATEGORY)
+#
+#     class Meta:
+#         verbose_name_plural = 'Categories'
+#
+#     def __str__(self):
+#         return self.title
 
 
 class Status(models.Model):
@@ -49,7 +49,7 @@ class Schedule(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    category = models.ForeignKey(Category, related_name='category', on_delete=models.SET_NULL, null=True, blank=True)
+    # category = models.ForeignKey(Category, related_name='category', on_delete=models.SET_NULL, null=True, blank=True)
     # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='근성')
 
