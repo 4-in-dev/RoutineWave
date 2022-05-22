@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from .models import Category, Schedule, Status
 
+
 # 스케쥴과 스케쥴 카테고리 등록 시리얼라이저
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -21,6 +22,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             "is_finished",
             "status",
         ]
+
 
 #
 # class ScheduleCreateSerializer(serializers.ModelSerializer):
@@ -87,3 +89,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
 
 
+class StatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id', 'title')
+        model = Status
