@@ -1,10 +1,11 @@
 from django.urls import include, path
 from rest_framework import routers
-
 from achievement.views import TotalGraphViewSet
-# from calendars.views import EventViewSet
 from schedules.views import ScheduleViewSet
 from scheduletemplates.views import SchedulestemplateViewSet
+
+# from calendars.views import EventViewSet
+
 
 # from users.views import UserViewSet
 # router.register(r'user', UserViewSet)
