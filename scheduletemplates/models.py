@@ -27,8 +27,7 @@ class Status(models.Model):
         return self.title
 
 
-class Schedule(models.Model):
-
+class Scheduletemplate(models.Model):
     STATUS_CHOICES = (
         ('hp', '체력'),
         ('int', '지력'),
@@ -38,7 +37,7 @@ class Schedule(models.Model):
         ('ten', '행복'),
     )
 
-    writer = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True)
+    writer = models.ForeignKey(User, related_name='template_user', on_delete=models.CASCADE, null=True)
     content = models.TextField(null=True, blank=True)
     is_finished = models.BooleanField('완료 여부', default=False)
     start_date = models.DateField()
@@ -49,12 +48,11 @@ class Schedule(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    category = models.ForeignKey(Category, related_name='category', on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name='template_category', on_delete=models.SET_NULL, null=True, blank=True)
     # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='근성')
 
-
     class Meta:
-        db_table = "schedule"
-        verbose_name = "스케쥴 조각"
-        verbose_name_plural = "{} {}".format(verbose_name, "목록")
+        db_table = "Scheduletemplate"
+        verbose_name = "스케쥴 템플릿"
+        verbose_name_plural = "{} {}".format(verbose_name, "스케쥴 템플릿 목록")

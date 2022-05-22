@@ -12,11 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+
 # import redis
 from .my_settings import (MY_DATABASES, MY_SECRET, MY_SECRET_ACCESS_KEY,
                           S3_BUCKET_NAME, SMTP_PASSWORD)
-from datetime import timedelta
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +37,7 @@ DATABASES = MY_DATABASES
 #     }
 # }
 
-DEBUG = True
+DEBUG = False
 
 # setting
 ALLOWED_HOSTS = ["*"]
@@ -67,18 +66,21 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-
     # 프로필 사진
     'imagekit',
-    
 
     # 로그인, 회원가입
     "users",
 
     # 스케쥴 CRUD
     "schedules",
+
     # calendar CRUD
     "calendars",
+
+    # scheduletemplates
+    "scheduletemplates",
+
 
     # 달성도 그래프
     'achievement',
