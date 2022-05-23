@@ -1,4 +1,5 @@
 from django.db import models
+
 from users.models import User
 
 # 스케쥴과 스케쥴 카테고리 등록
@@ -17,6 +18,7 @@ class Status(models.Model):
 
 
 class Scheduletemplate(models.Model):
+
     STATUS_CHOICES = (
         ('hp', '체력'),
         ('int', '지력'),
@@ -27,6 +29,7 @@ class Scheduletemplate(models.Model):
     )
 
     template_name = models.CharField(max_length=20, unique=True, default='템플릿')
+
     writer = models.ForeignKey(User, related_name='template_user', on_delete=models.CASCADE, null=True)
     content = models.TextField(null=True, blank=True)
     is_finished = models.BooleanField('완료 여부', default=False)
@@ -38,8 +41,10 @@ class Scheduletemplate(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
+
     # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='근성')
+
 
     class Meta:
         db_table = "Scheduletemplate"

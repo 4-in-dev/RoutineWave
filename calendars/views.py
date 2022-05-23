@@ -73,6 +73,7 @@ class EventViewSet(viewsets.ModelViewSet):
     #             return queryset.filter(event_date__month=month,
     #                                    event_date__year=year)
     #
+
     #     return queryset
 
     # @login_required
@@ -84,3 +85,4 @@ class EventViewSet(viewsets.ModelViewSet):
     # def completedtodos(request):
     #     todos = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
     #     return render(request, 'todo/completedtodos.html', {'todos': todos})
+

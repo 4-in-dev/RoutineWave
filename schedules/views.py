@@ -35,6 +35,7 @@ from .serializers import StatusSerializer
 #         return self.update(request, *args, **kwargs)
 
 
+
 # class ListCategory(generics.ListCreateAPIView):
 #     permission_classes = (permissions.IsAuthenticated,)
 #     queryset = Category.objects.all()
@@ -45,6 +46,7 @@ from .serializers import StatusSerializer
 #     permission_classes = (permissions.IsAuthenticated,)
 #     queryset = Category.objects.all()
 #     serializer_class = CategorySerializer
+
 
 
 # class ScheduleViewSet(viewsets.ModelViewSet):

@@ -22,6 +22,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             "status",
         ]
 
+
 #
 # class ScheduleCreateSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -128,4 +129,5 @@ class StatusSerializer(serializers.ModelSerializer):
 
         fields = ('id', 'title')
         model = Status
+
 

@@ -31,6 +31,7 @@ class SchedulestemplateSerializer(serializers.ModelSerializer):
 #         model = Category
 
 
+
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
