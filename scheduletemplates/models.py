@@ -37,6 +37,8 @@ class Scheduletemplate(models.Model):
         ('ten', '행복'),
     )
 
+    template_name = models.CharField(max_length=20, unique=True, default='템플릿')
+
     writer = models.ForeignKey(User, related_name='template_user', on_delete=models.CASCADE, null=True)
     content = models.TextField(null=True, blank=True)
     is_finished = models.BooleanField('완료 여부', default=False)
@@ -48,7 +50,6 @@ class Scheduletemplate(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    category = models.ForeignKey(Category, related_name='template_category', on_delete=models.SET_NULL, null=True, blank=True)
     # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='will')
 
