@@ -11,11 +11,9 @@ from scheduletemplates.views import SchedulestemplateViewSet
 # from users.views import UserViewSet
 # router.register(r'user', UserViewSet)
 
-
 router = routers.DefaultRouter()
 router.register(r'schedule', ScheduleViewSet)
 # router.register(r'events', EventViewSet)
-
 router.register(r'graph', TotalGraphViewSet)
 
 router.register(r'Schedulestemplate', SchedulestemplateViewSet)

@@ -18,7 +18,6 @@ class Status(models.Model):
 
 
 class Scheduletemplate(models.Model):
-
     STATUS_CHOICES = (
         ('hp', '체력'),
         ('int', '지력'),
@@ -41,10 +40,8 @@ class Scheduletemplate(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-
     # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='근성')
-
 
     class Meta:
         db_table = "Scheduletemplate"

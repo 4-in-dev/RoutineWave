@@ -80,8 +80,6 @@ INSTALLED_APPS = [
 
     # 달성도 그래프
     'achievement',
-
-
 ]
 
 MIDDLEWARE = [
@@ -175,7 +173,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -274,7 +271,6 @@ EMAIL_HOST_PASSWORD = SMTP_PASSWORD["PASSWORD"]
 EMAIL_PORT = '587'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
 # REDIS related settings
 
 # REDIS_HOST = 'localhost'
@@ -282,4 +278,3 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 # BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 # CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-
