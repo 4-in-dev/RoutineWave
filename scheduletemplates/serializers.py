@@ -33,6 +33,7 @@ class SchedulestemplateSerializer(serializers.ModelSerializer):
 
 
 
+
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
