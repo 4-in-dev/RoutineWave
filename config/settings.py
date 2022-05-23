@@ -278,3 +278,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 # BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 # CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "https://develop--routinewave.netlify.app",
+    "https://routinewave.netlify.app",
+]
