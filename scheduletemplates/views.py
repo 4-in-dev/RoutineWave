@@ -3,8 +3,8 @@ from datetime import datetime
 from rest_framework import generics, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Category, Scheduletemplate
-from .serializers import (CategorySerializer, SchedulestemplateSerializer)
+from .models import Scheduletemplate
+from .serializers import SchedulestemplateSerializer
 
 
 class SchedulestemplateViewSet(viewsets.ModelViewSet):
