@@ -111,40 +111,6 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #         return User.objects.create_user(**validated_data)
 
 
-#
-# class ScheduleCreateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Schedule
-#         fields = [
-#             "start_date",
-#             "start_time",
-#             "end_date",
-#             "end_time",
-#             "content",
-#             "is_finished",
-#         ]
-#         extra_kwargs = {
-#             "id": {"read_only": True},
-#         }
-#
-#
-# class ScheduleUpdateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Schedule
-#         fields = [
-#             "start_date",
-#             "start_time",
-#             "end_date",
-#             "end_time",
-#             "content",
-#             "is_finished",
-#         ]
-#         extra_kwargs = {
-#             "id": {"read_only": True},
-#         }
-#
-
-
 # class CategorySerializer(serializers.ModelSerializer):
 #     class Meta:
 #         fields = (
@@ -152,8 +118,6 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #             'title'
 #         )
 #         model = Category
-
-
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
