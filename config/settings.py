@@ -80,7 +80,6 @@ INSTALLED_APPS = [
 
     # 달성도 그래프
     'achievement',
-
 ]
 
 MIDDLEWARE = [

@@ -73,6 +73,7 @@ class EventViewSet(viewsets.ModelViewSet):
     #             return queryset.filter(event_date__month=month,
     #                                    event_date__year=year)
     #
+
     #     return queryset
 
     # @login_required
