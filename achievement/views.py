@@ -1,17 +1,16 @@
 from datetime import date, datetime, timedelta
 
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from schedules.models import Schedule
+from .models import Achievement, Status
+from .serializers import AchievementSerializer, StatusSerializer
 
-from .models import Achievement
-from .serializers import AchievementSerializer
 
+## 일일 달성도 그래프
+class AchievementViewSet(viewsets.ModelViewSet):
 
-class TotalGraphViewSet(viewsets.ModelViewSet):
     # ViewSet 설정
     queryset = Achievement.objects.all()
     serializer_class = AchievementSerializer
@@ -19,7 +18,6 @@ class TotalGraphViewSet(viewsets.ModelViewSet):
 
     # 무조건 GET 방식으로 해야 함
     def get_queryset(self, queryset=None):
-        # queryset = Schedule.objects.all()
         # 오늘 날짜를 기준으로 -15일 ~ +15일 기간을 구할 것임
         today = date.today() - timedelta(days=15)
 
@@ -34,7 +32,7 @@ class TotalGraphViewSet(viewsets.ModelViewSet):
             # 하루가 지날 때마다 today에 +1
             today += timedelta(days=1)
 
-            # Schedule에서 before에 해당하는 일정들 전부 가져오기
+            # Schedule에서 today에 해당하는 일정들 전부 가져오기
             schedule_list = Schedule.objects.filter(writer=self.request.user,
                                                     start_date=datetime.strptime(str(today), '%Y-%m-%d'))
 
@@ -54,7 +52,7 @@ class TotalGraphViewSet(viewsets.ModelViewSet):
             achievement = Achievement.objects.filter(writer=self.request.user, date=today).update_or_create(
                 finished_schedules_day=finished_schedules_day,
                 total_schedules_day=total_schedules_day,
-                total_percent=total_percent, # 일일 달성도
+                total_percent=total_percent,  # 일일 달성도
                 date=today,
                 writer=self.request.user
             )
@@ -64,8 +62,8 @@ class TotalGraphViewSet(viewsets.ModelViewSet):
             # achievement.save()
 
         # 오늘 날짜로부터터 -15일 ~ +15 범위를 필터링
-        before = date.today() - timedelta(days=15) # -15일
-        after = date.today() + timedelta(days=15) # +15일
+        before = date.today() - timedelta(days=15)  # -15일
+        after = date.today() + timedelta(days=15)  # +15일
 
         before = datetime.strptime(str(before), '%Y-%m-%d')
         after = datetime.strptime(str(after), '%Y-%m-%d')
@@ -75,3 +73,84 @@ class TotalGraphViewSet(viewsets.ModelViewSet):
         # print(f'achievement_list: {achievement_list}')
 
         return achievement_list
+
+
+
+## 스텟별 달성도 그래프
+class StatusViewSet(viewsets.ModelViewSet):
+
+    # ViewSet 설정
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+    permission_classes = (IsAuthenticated,)
+
+    # 무조건 GET 방식으로 해야 함
+    def get_queryset(self, queryset=None):
+
+        # 변수 선언, 초기화
+        hp = 0 # 체력
+        int = 0 # 지력
+        will = 0 # 근성, 의지
+        exp = 0 # 경험
+        money = 0 # 재력
+        ten = 0 # 행복
+
+        # 오늘 날짜로부터터 -15일 ~ +15 범위를 필터링
+        before = date.today() - timedelta(days=15)  # -15일
+        after = date.today() + timedelta(days=15)  # +15일
+
+        before = datetime.strptime(str(before), '%Y-%m-%d')
+        after = datetime.strptime(str(after), '%Y-%m-%d')
+
+        ## 체력 달성도
+        total_hp = Schedule.objects.filter(writer=self.request.user, status='hp')
+        if total_hp:
+            finished_hp = Schedule.objects.filter(writer=self.request.user, status='hp', is_finished=1)
+            total_hp_cnt = total_hp.count()
+            finished_hp_cnt = finished_hp.count()
+            hp = finished_hp_cnt / total_hp_cnt
+
+        ## 지력 달성도
+        total_int = Schedule.objects.filter(writer=self.request.user, status='int')
+        if total_int:
+            finished_int = Schedule.objects.filter(date__range=[before, after], writer=self.request.user, status='int', is_finished=1)
+            total_int_cnt = total_int.count()
+            finished_int_cnt = finished_int.count()
+            int = finished_int_cnt / total_int_cnt
+
+        ## 근성 달성도
+        total_will = Schedule.objects.filter(writer=self.request.user, status='will')
+        if total_will:
+            finished_will = Schedule.objects.filter(writer=self.request.user, status='will', is_finished=1)
+            total_will_cnt = total_will.count()
+            finished_will_cnt = finished_will.count()
+            will = finished_will_cnt / total_will_cnt
+
+        ## 경험 달성도
+        total_exp = Schedule.objects.filter(writer=self.request.user, status='exp')
+        if total_exp:
+            finished_exp = Schedule.objects.filter(writer=self.request.user, status='exp', is_finished=1)
+            total_exp_cnt = total_exp.count()
+            finished_exp_cnt = finished_exp.count()
+            exp = finished_exp_cnt / total_exp_cnt
+
+        ## 재력 달성도
+        total_money = Schedule.objects.filter(writer=self.request.user, status='money')
+        if total_money:
+            finished_money = Schedule.objects.filter(writer=self.request.user, status='money', is_finished=1)
+            total_money_cnt = total_money.count()
+            finished_money_cnt = finished_money.count()
+            money = finished_money_cnt / total_money_cnt
+
+        ## 행복 달성도
+        total_ten = Schedule.objects.filter(writer=self.request.user, status='ten')
+        if total_ten:
+            finished_ten = Schedule.objects.filter(writer=self.request.user, status='ten', is_finished=1)
+            total_ten_cnt = total_ten.count()
+            finished_ten_cnt = finished_ten.count()
+            ten = finished_ten_cnt / total_ten_cnt
+
+        status = Status.objects.filter(writer=self.request.user).update_or_create(
+            writer=self.request.user, hp=hp, int=int, will=will, exp=exp, money=money, ten=ten)
+
+        return status

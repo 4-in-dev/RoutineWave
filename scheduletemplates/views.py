@@ -3,8 +3,8 @@ from datetime import datetime
 from rest_framework import generics, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Scheduletemplate, Status
-from .serializers import SchedulestemplateSerializer, StatusSerializer
+from .models import Scheduletemplate
+from .serializers import SchedulestemplateSerializer
 
 
 class SchedulestemplateViewSet(viewsets.ModelViewSet):
@@ -23,15 +23,3 @@ class SchedulestemplateViewSet(viewsets.ModelViewSet):
             date2 = datetime(date1.year, date1.month + 1, date1.day)
             queryset = queryset.filter(start_date__range=[date1, date2])
         return queryset
-
-
-class ListStatus(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
-
-
-class DetailStatus(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
