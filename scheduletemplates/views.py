@@ -25,6 +25,8 @@ class SchedulestemplateViewSet(viewsets.ModelViewSet):
         return queryset
 
 
+
+
 class ListStatus(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Status.objects.all()
