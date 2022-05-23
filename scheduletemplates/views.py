@@ -3,9 +3,8 @@ from datetime import datetime
 from rest_framework import generics, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Category, Scheduletemplate, Status
-from .serializers import (CategorySerializer, SchedulestemplateSerializer,
-                          StatusSerializer)
+from .models import Category, Scheduletemplate
+from .serializers import (CategorySerializer, SchedulestemplateSerializer)
 
 
 class SchedulestemplateViewSet(viewsets.ModelViewSet):
@@ -38,13 +37,13 @@ class DetailCategory(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
 
-class ListStatus(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
-
-
-class DetailStatus(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
+# class ListStatus(generics.ListCreateAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer
+#
+#
+# class DetailStatus(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer

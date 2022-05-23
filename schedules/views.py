@@ -7,10 +7,10 @@ from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 
-from schedules.models import Schedule, Status
+from schedules.models import Schedule
 from schedules.serializers import ScheduleSerializer
 
-from .serializers import StatusSerializer
+# from .serializers import StatusSerializer
 
 # class ScheduleListView(generics.ListCreateAPIView):
 #     # permission_classes = (permissions.IsAuthenticated,)
@@ -82,13 +82,13 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class ListStatus(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
-
-
-class DetailStatus(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Status.objects.all()
-    serializer_class = StatusSerializer
+# class ListStatus(generics.ListCreateAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer
+#
+#
+# class DetailStatus(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Status.objects.all()
+#     serializer_class = StatusSerializer

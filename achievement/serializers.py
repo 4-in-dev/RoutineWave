@@ -1,5 +1,6 @@
-from achievement.models import Achievement
+from achievement.models import Achievement, Status
 from api import serializers
+
 
 
 class AchievementSerializer(serializers.ModelSerializer):
@@ -12,4 +13,18 @@ class AchievementSerializer(serializers.ModelSerializer):
             'total_percent',
             "total_schedules_day",
             "finished_schedules_day",
+        )
+
+
+
+class StatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Status
+        fields = (
+            'hp',
+            'int',
+            'money',
+            'ten',
+            'exp',
+            'will',
         )

@@ -1,8 +1,8 @@
 from django.contrib import admin
-
-from .models import Schedule, Status
-
-# Register your models here.
+#
+from .models import Schedule
+#
+# # Register your models here.
 admin.site.register(Schedule)
-# admin.site.register(Category)
-admin.site.register(Status)
+# # admin.site.register(Category)
+# admin.site.register(Status)
