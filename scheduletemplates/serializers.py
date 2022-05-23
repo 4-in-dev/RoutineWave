@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Category, Scheduletemplate, Status
+from .models import Scheduletemplate, Status
 
 # 스케쥴과 스케쥴 카테고리 등록 시리얼라이저
 
@@ -22,13 +22,15 @@ class SchedulestemplateSerializer(serializers.ModelSerializer):
         ]
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'id',
-            'title'
-        )
-        model = Category
+# class CategorySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         fields = (
+#             'id',
+#             'title'
+#         )
+#         model = Category
+
+
 
 
 class StatusSerializer(serializers.ModelSerializer):
