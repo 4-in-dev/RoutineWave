@@ -15,6 +15,7 @@ router = routers.DefaultRouter()
 router.register(r'schedule', ScheduleViewSet)
 # router.register(r'events', EventViewSet)
 router.register(r'graph', TotalGraphViewSet)
+
 router.register(r'Schedulestemplate', SchedulestemplateViewSet)
 
 urlpatterns = [
