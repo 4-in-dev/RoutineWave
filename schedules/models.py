@@ -39,14 +39,14 @@ class Schedule(models.Model):
     )
 
     writer = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True)
-    content = models.TextField(max_length=20)
+    content = models.CharField(max_length=20)
     is_finished = models.BooleanField('완료 여부', default=False)
     start_date = models.DateField()
     start_time = models.TimeField()
     end_date = models.DateField()
     end_time = models.TimeField()
 
-    description = models.TextField(max_length=255, null=True, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
 
 
     updated = models.DateTimeField(auto_now=True)

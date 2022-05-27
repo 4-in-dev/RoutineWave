@@ -45,5 +45,7 @@ class Rank(models.Model):
 
     writer = models.ForeignKey(User, related_name='rank_writer', on_delete=models.CASCADE, null=True)
     rank = models.CharField(default='D', max_length=3)
-    total_schedules = models.IntegerField(default=0)
+
+    # total_schedules = models.IntegerField(default=0)
+    finished_schedules = models.IntegerField(default=0)
 

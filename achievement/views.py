@@ -194,7 +194,7 @@ class RankViewSet(viewsets.ModelViewSet):
         elif finished_cnt < 5:
             user_rank = 'S'
 
-        rank = Rank.objects.filter(writer=self.request.user).update_or_create(writer=self.request.user, rank=user_rank)
+        rank = Rank.objects.filter(writer=self.request.user).update_or_create(writer=self.request.user, rank=user_rank, finished_schedules=finished_cnt)
 
         return rank
 
