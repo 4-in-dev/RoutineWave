@@ -2,6 +2,7 @@ from django.db import models
 
 from users.models import User
 
+
 # 일일 그래프 달성도
 class Achievement(models.Model):
 
@@ -33,3 +34,16 @@ class Status(models.Model):
     ten = models.FloatField(default=0) # 기분, 행복(tension)
     exp = models.FloatField(default=0) # 경험(experience)
     will = models.FloatField(default=0) # 근성(will)
+
+
+
+# 사용자별 랭크
+class Rank(models.Model):
+
+    def __str__(self):
+        return self.rank
+
+    writer = models.ForeignKey(User, related_name='rank_writer', on_delete=models.CASCADE, null=True)
+    rank = models.CharField(default='D', max_length=3)
+    total_schedules = models.IntegerField(default=0)
+

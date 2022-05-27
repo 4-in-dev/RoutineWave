@@ -1,6 +1,5 @@
-from achievement.models import Achievement, Status
+from achievement.models import Achievement, Rank, Status
 from api import serializers
-
 
 
 class AchievementSerializer(serializers.ModelSerializer):
@@ -27,4 +26,12 @@ class StatusSerializer(serializers.ModelSerializer):
             'ten',
             'exp',
             'will',
+        )
+
+
+class RankSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rank
+        fields = (
+            'rank',
         )

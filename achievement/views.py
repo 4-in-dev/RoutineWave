@@ -4,13 +4,14 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from schedules.models import Schedule
-from .models import Achievement, Status
-from .serializers import AchievementSerializer, StatusSerializer
+
+from .models import Achievement, Rank, Status
+from .serializers import (AchievementSerializer, RankSerializer,
+                          StatusSerializer)
 
 
 ## 일일 달성도 그래프
 class AchievementViewSet(viewsets.ModelViewSet):
-
     # ViewSet 설정
     queryset = Achievement.objects.all()
     serializer_class = AchievementSerializer
@@ -18,8 +19,8 @@ class AchievementViewSet(viewsets.ModelViewSet):
 
     # 무조건 GET 방식으로 해야 함
     def get_queryset(self, queryset=None):
-        # 오늘 날짜를 기준으로 -15일 ~ +15일 기간을 구할 것임
-        today = date.today() - timedelta(days=15)
+        # 오늘 날짜를 기준으로 -30일 기간을 구할 것임
+        today = date.today() - timedelta(days=30)
 
         # 한달(30번) 돌리면서 Achievement에 저장
         for _ in range(0, 31):
@@ -61,9 +62,10 @@ class AchievementViewSet(viewsets.ModelViewSet):
             # print(f'{i}: {today} / daily_percent: {achievement} / daily_percent: {daily_percent}')
             # achievement.save()
 
-        # 오늘 날짜로부터터 -15일 ~ +15 범위를 필터링
-        before = date.today() - timedelta(days=15)  # -15일
-        after = date.today() + timedelta(days=15)  # +15일
+        # 오늘 날짜로부터 -30일 범위를 필터링
+        before = date.today() - timedelta(days=30)  # -30일
+        after = date.today() + timedelta(days=1)# 오늘
+
 
         before = datetime.strptime(str(before), '%Y-%m-%d')
         after = datetime.strptime(str(after), '%Y-%m-%d')
@@ -88,16 +90,17 @@ class StatusViewSet(viewsets.ModelViewSet):
     def get_queryset(self, queryset=None):
 
         # 변수 선언, 초기화
-        hp = 0 # 체력
-        int = 0 # 지력
-        will = 0 # 근성, 의지
-        exp = 0 # 경험
-        money = 0 # 재력
-        ten = 0 # 행복
+        hp = 0  # 체력
+        int = 0  # 지력
+        will = 0  # 근성, 의지
+        exp = 0  # 경험
+        money = 0  # 재력
+        ten = 0  # 행복
 
-        # 오늘 날짜로부터터 -15일 ~ +15 범위를 필터링
-        before = date.today() - timedelta(days=15)  # -15일
-        after = date.today() + timedelta(days=15)  # +15일
+        # 오늘 날짜로부터 -30일 범위를 필터링
+        before = date.today() - timedelta(days=30)  # -30일
+        after = date.today() + timedelta(days=1)  # 오늘
+
 
         before = datetime.strptime(str(before), '%Y-%m-%d')
         after = datetime.strptime(str(after), '%Y-%m-%d')
@@ -113,7 +116,10 @@ class StatusViewSet(viewsets.ModelViewSet):
         ## 지력 달성도
         total_int = Schedule.objects.filter(writer=self.request.user, status='int')
         if total_int:
-            finished_int = Schedule.objects.filter(date__range=[before, after], writer=self.request.user, status='int', is_finished=1)
+
+            finished_int = Schedule.objects.filter(date__range=[before, after], writer=self.request.user, status='int',
+                                                   is_finished=1)
+
             total_int_cnt = total_int.count()
             finished_int_cnt = finished_int.count()
             int = finished_int_cnt / total_int_cnt
@@ -154,3 +160,41 @@ class StatusViewSet(viewsets.ModelViewSet):
             writer=self.request.user, hp=hp, int=int, will=will, exp=exp, money=money, ten=ten)
 
         return status
+
+
+
+
+## 사용자별 랭크
+class RankViewSet(viewsets.ModelViewSet):
+
+    # ViewSet 설정
+    queryset = Rank.objects.all()
+    serializer_class = RankSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        # 오늘 날짜로부터 -30일 범위를 필터링
+        before = date.today() - timedelta(days=30)  # -30일
+        after = date.today() + timedelta(days=1)  # 오늘
+
+        before = datetime.strptime(str(before), '%Y-%m-%d')
+        after = datetime.strptime(str(after), '%Y-%m-%d')
+
+        finished_list = Schedule.objects.filter(writer=self.request.user, start_date__range=[before, after], is_finished=1)
+        finished_cnt = finished_list.count()
+
+        if finished_cnt < 1:
+            user_rank = 'D'
+        elif finished_cnt < 2:
+            user_rank = 'C'
+        elif finished_cnt < 3:
+            user_rank = 'B'
+        elif finished_cnt < 4:
+            user_rank = 'A'
+        elif finished_cnt < 5:
+            user_rank = 'S'
+
+        rank = Rank.objects.filter(writer=self.request.user).update_or_create(writer=self.request.user, rank=user_rank)
+
+        return rank
+

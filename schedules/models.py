@@ -56,8 +56,6 @@ class Schedule(models.Model):
     # status = models.ForeignKey(Status, related_name='status', on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='will')
 
-
-
     class Meta:
         db_table = "schedule"
         verbose_name = "스케쥴 조각"
