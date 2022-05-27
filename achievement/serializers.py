@@ -21,6 +21,7 @@ class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
         fields = (
+            'writer',
             'hp',
             'int',
             'money',
@@ -34,5 +35,7 @@ class RankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rank
         fields = (
+            'writer',
             'rank',
+            'finished_schedules',
         )
