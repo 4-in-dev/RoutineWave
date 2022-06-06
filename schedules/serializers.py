@@ -87,9 +87,5 @@ class ScheduleSerializer(serializers.ModelSerializer):
 #         model = Category
 
 
-# class StatusSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         fields = ('id', 'title')
-#         model = Status
 
 
